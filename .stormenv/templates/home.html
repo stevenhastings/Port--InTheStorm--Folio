@@ -4,12 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Manicblogger</title>
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="/static/css/styles.css" />
     </head>
     <body>
         <header class="navbar">
             <div class="navbar__brand">
-                <img src="V R.svg" alt="VR Narratives Logo"/>Manicblogger
+                <img src="/static/V R.svg" alt="VR Narratives Logo"/>Manicblogger
             </div>
             <ul class="navbar__navigation">
                 <li class="navbar__navigation-item"><a href="#" class="navbar__link">Recent</a></li>
@@ -19,7 +19,7 @@
         <main class="main">
             <section>
                 <h1>Add new entry</h1>
-                <form class="form" action="/entry" method="POST">
+                <form class="form" method="POST">
                     <p class="form__input">
                         <label for="entry" class="form__label">Entry contents</label>
                         <textarea name="content" id="entry" class="form__textarea"></textarea>
@@ -29,15 +29,17 @@
             </section>
             <section>
                 <h1>Recent posts</h1>
-                <article class="entry">
-                    <div>
-                        <h2 class="entry__title">A bit of lonely day</h2>
-                        <time class="entry__date" datetime="12-08-2022">Aug 12</time>
-                    </div>
-                    <p class="entry__content">
-                        Today I learned how to build a website.
-                    </p>
-                </article>
+                {% for entry in entries %}
+                    <article class="entry">
+                        <div>
+                            <h2 class="entry__title">{{ entry[0] | truncate(30, true) }}</h2>
+                            <time class="entry__date" datetime="{{ entry[1] }}">{{ entry[2] }}</time>
+                        </div>
+                        <p class="entry__content">
+                            {{ entry[0] }}
+                        </p>
+                    </article>
+                {% endfor %}
             </section>
         </main>
         <footer> class="footer">
